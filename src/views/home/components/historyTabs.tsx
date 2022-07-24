@@ -1,16 +1,12 @@
-// import { ElTabPane, ElTabs,ElButton } from 'element-plus';
-import { ref, toRefs, watch } from 'vue';
+import { createVNode, ref, toRefs, Transition, watch } from 'vue';
 import { defineComponent } from 'vue';
-import { Tabs, TabPane } from 'ant-design-vue';
-import { RouteRecordName, RouterView } from 'vue-router';
-import { PropType,KeepAlive } from 'vue';
-import {useRouter} from 'vue-router';
+import TabItem from './tabItem';
+import { RouterView } from 'vue-router';
+import { PropType, KeepAlive } from 'vue';
+import { useRouter } from 'vue-router';
 import './history.scss';
-export interface TabsItem {
-  name: RouteRecordName
-  path: string
-}
-// import { TabsItem } from '';
+import { IRouterViewSlot, TabsItem } from '@type/index';
+
 export default defineComponent({
   props: {
     openPages: {
@@ -23,8 +19,8 @@ export default defineComponent({
     }
   },
   emits: ['update:openPages', 'update:currentPage'],
-  setup(props, { emit }) {
-    const router=useRouter()
+  setup(props, {  emit }) {
+    const router = useRouter()
     const activeKey = ref(props.currentPage)
     watch(() => props.currentPage, (val) => {
       activeKey.value = val
@@ -35,28 +31,45 @@ export default defineComponent({
       activeKey.value = val.length ? val[val.length - 1].path : props.currentPage
       pagesList.value = val
     }, { deep: true })
-    const handleChange =(val)=>{
-     activeKey.value=val
-     router.push(val)
+    const handleClose = (path: string) => {
+      pagesList.value = openPages.value.filter(item => item.path !== path)
+      emit('update:openPages', pagesList.value)
+      localStorage.setItem('pageList', JSON.stringify(pagesList.value))
     }
-    const handleTabsEdit = (targetKey, action) => {
-      if (action === 'remove') {
-        pagesList.value = openPages.value.filter(item => item.path !== targetKey)
-        emit('update:openPages', pagesList.value)
-        localStorage.setItem('pageList',JSON.stringify(pagesList.value))
-      }
+
+    const handleSelect = (path: string) => {
+      activeKey.value = path
+      emit('update:currentPage', path)
+      localStorage.setItem('currentPage', path)
+      router.push(path)
     }
     return () => {
       return (
         <div class="p-4 h-full">
-          <Tabs type="editable-card" hide-add size="small" onChange={handleChange} onEdit={handleTabsEdit} tabBarStyle={{ backgroundColor: 'white' }} v-model:activeKey={activeKey.value}>
-            {openPages.value.map(tab => {
-              return <TabPane key={tab.path} tab={tab.name} class='h-full w-full'>
-                 <RouterView>
-                 </RouterView>
-              </TabPane>
-            })}
-          </Tabs>
+          <div class="h-10 pl-2 rounded shadow bg-white flex items-center justify-start">
+            {
+              openPages.value.map(item => {
+                return <TabItem onCloseTag={handleClose} onSelectTag={handleSelect} isCurrent={item.path === activeKey.value} item={item}></TabItem>
+              })
+            }
+          </div>
+          <div class="h-auto mt-4 rounded shadow">
+            <RouterView v-slots={{
+              default: ({ Component }: IRouterViewSlot) => {
+                return (
+                  <>
+                    <Transition name="fade" mode="out-in">
+                      <KeepAlive>
+                        {createVNode(Component)}
+                      </KeepAlive>
+                    </Transition>
+                  </>
+
+                )
+              }
+            }}>
+            </RouterView>
+          </div>
         </div>
       )
     }

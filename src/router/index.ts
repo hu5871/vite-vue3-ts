@@ -4,6 +4,18 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@views/home/index.vue';
 export const routes: Array<RouteRecordRaw> = [
   {
+    path: '/test',
+    component: Home,
+    name: "测试功能",
+    children: [
+      {
+        name: "pinia",
+        path: "/pinia",
+        component: () => import('@views/test/pinia')
+      }
+    ]
+  },
+  {
     path: '/',
     component: Home,
     name: "图表",
@@ -18,7 +30,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: '/table',
     component: Home,
-    name: "表格测试菜单",
+    name: "表格",
     children: [
       {
         name: "表格",
@@ -27,6 +39,7 @@ export const routes: Array<RouteRecordRaw> = [
       }
     ]
   },
+  
 ]
 
 

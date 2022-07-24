@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
     "@vitejs/plugin-vue-jsx": "^2.0.0",
     "ant-design-vue": "^3.2.10",
     "dayjs": "^1.11.4",

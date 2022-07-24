@@ -48,16 +48,10 @@ export default defineComponent({
     function handleFromSubmit(){
       emit('submit',filterState)
     }
-    const page=ref<HTMLDivElement>()
-    onMounted(()=>{
-      page.value!.parentElement!.style.height="100%"
-    })
-
-
     return () => {
       return (
-        <div id="page" ref={page} class="overscroll-y-auto h-full">
-          <div class="shadow bg-white mb-5 rounded p-4" >
+        <div  class="overscroll-y-auto">
+          <div class="shadow h-auto bg-white mb-5 rounded p-4" >
             <Form model={filterState}  layout='inline'>
               {
                 filter.value ? filter.value.map(item => {
@@ -74,7 +68,7 @@ export default defineComponent({
               <Button type="primary" onClick={handleFromSubmit}>筛选</Button>
             </Form>
           </div>
-          <div class="h-full bg-white p-4">
+          <div class="bg-white p-4 mt-4">
             <Table columns={columns.value}  sticky scroll={{ y: 400 }} data-source={props.data} v-slots={{
               headerCell: ({ column }) => {
                 return <span>{column.title}</span>

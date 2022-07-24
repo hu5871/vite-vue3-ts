@@ -26,7 +26,7 @@ import { Menu, SubMenu, MenuItem } from 'ant-design-vue';
 import { routes } from '@router/index'
 import { useRouter } from 'vue-router';
 import { ref, defineProps, defineEmits, PropType, toRefs, computed, watch, watchEffect } from 'vue';
-import { TabsItem } from './historyTabs';
+import { TabsItem } from '@type/index';
 import {RouteRecordName} from 'vue-router'
 const router = useRouter()
 const emit = defineEmits(['update:openPages','update:currentPage'])
@@ -55,6 +55,7 @@ const handleRoute = (name: RouteRecordName, path: string): void => {
     router.push(path)
     emit('update:openPages', pageList.value)
   }else{
+    router.push(path)
     emit('update:currentPage',path)
   }
  localStorage.setItem("pageList", JSON.stringify(pageList.value))

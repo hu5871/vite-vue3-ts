@@ -1,26 +1,50 @@
 {
   "compilerOptions": {
     "target": "es2015",
+    "baseUrl": ".",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "noImplicitAny":false,
-    "lib": ["ESNext", "DOM"],
+    "noImplicitAny": false,
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "skipLibCheck": true,
     "paths": {
-      "@http/*": ["./src/http/*"],
-      "@store/*": ["./src/store/*"],
-      "@router/*": ["./src/router/*"],
-      "@types/*": ["./src/types/*"],
-      "@cmp/*":["./src/components/*"]
+      "@views/*": [
+        "./src/views/*"
+      ],
+      "@http/*": [
+        "./src/http/*"
+      ],
+      "@store/*": [
+        "./src/store/*"
+      ],
+      "@router/*": [
+        "./src/router/*"
+      ],
+      "@type/*": [
+        "./src/types/*"
+      ],
+      "@cmp/*": [
+        "./src/components/*"
+      ]
     },
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "vite.config.ts",
+    "src/**/*.ts",
+    "types/*.d.ts",
+    "types/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ]
 }

@@ -20,12 +20,13 @@ export default defineConfig({
   resolve: {
     extensions: ['.js', '.ts', '.vue', '.css', '.jsx', '.tsx'],//解析文件时，按照顺序查找后缀
     alias: {
+      '@': path.resolve(__dirname, './src'),
       '@views': path.resolve(__dirname, './src/views'),
       '@cmp': path.resolve(__dirname, './src/components'),
       '@store': path.resolve(__dirname, './src/store'),
       '@api': path.resolve(__dirname, './src/api'),
       '@router': path.resolve(__dirname, './src/router'),
-      '@types': path.resolve(__dirname, './src/types'),
+      '@type': path.resolve(__dirname, './src/types'),
     }
   },
 })

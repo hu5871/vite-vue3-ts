@@ -14,21 +14,36 @@
 - [x] table 封装
 - [x] 基础的echarts图表
 - [x] tsx
-
+- [x] pinia  状态管理
  
 
 > 未完成的列表
 
-- [ ] pinia  状态管理
-- [ ]  封装  权限管理
+- [ ] 封装  权限管理
 - [ ] Vitest 单元测试支持
 - [ ] 打包优化
 
 
-
 ## 拉取仓库
 
+你有两种方式下载：
 
+### git
+
+```bash
+git clone git@github.com:hu5871/vite-vue3-ts.git
+```
+
+
+
+### var-cli
+
+var-cli提供了三大框架的模版vue、angular、react
+
+```
+npm install -g var-cli
+var create my-project-name
+```
 
 
 
